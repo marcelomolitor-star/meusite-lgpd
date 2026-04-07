@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LGPD e Vazamento de Dados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f8fc;
+      --white: #ffffff;
+      --navy: #081a3a;
+      --navy-2: #0d2450;
+      --blue: #163b82;
+      --teal: #0f766e;
+      --cyan: #0ea5b7;
+      --amber: #d97706;
+      --red: #b91c1c;
+      --text: #0f172a;
+      --muted: #5b6474;
+      --border: #dde4ef;
+      --section: #eef3f8;
+      --footer: #061128;
+      --shadow: 0 12px 36px rgba(15, 23, 42, 0.08);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --container: 1240px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(100% - 32px, var(--container));
+      margin: 0 auto;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 56px;
+      padding: 0 28px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 1rem;
+      font-weight: 700;
+      transition: .25s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--teal); color: var(--white); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255,255,255,.25);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,.08); }
+
+    .section-tag {
+      display: inline-block;
+      margin-bottom: 16px;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .24em;
+      color: var(--teal);
+    }
+
+    .section-title {
+      font-size: clamp(2.1rem, 4.6vw, 4rem);
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -.05em;
+      color: var(--navy);
+    }
+
+    .section-subtitle {
+      margin-top: 18px;
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: var(--muted);
+      max-width: 860px;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      min-height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.7rem;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      color: var(--navy);
+    }
+
+    .logo-mark {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      color: var(--white);
+      box-shadow: 0 10px 24px rgba(8, 26, 58, 0.2);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .nav a:hover { color: var(--navy); }
+
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 60%, #0a2a5f 100%);
+      color: var(--white);
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 46px;
+      align-items: center;
+      padding: 86px 0 92px;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      margin-bottom: 24px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      color: #dce7ff;
+      font-size: .92rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: .96;
+      font-weight: 800;
+      letter-spacing: -.06em;
+      max-width: 760px;
+    }
+
+    .hero-title .accent { color: #7dd3fc; }
+
+    .hero-text {
+      margin-top: 24px;
+      max-width: 700px;
+      font-size: 1.2rem;
+      line-height: 1.9;
+      color: #dce7ff;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .hero-panel {
+      padding: 28px;
+      border-radius: var(--radius-xl);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 30px 70px rgba(0,0,0,.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-panel-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .mini-card {
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .mini-card strong {
+      display: block;
+      margin-top: 10px;
+      font-size: 1.05rem;
+    }
+
+    .mini-card span {
+      display: block;
+      margin-top: 6px;
+      font-size: .95rem;
+      line-height: 1.7;
+      color: #d9e5fb;
+    }
+
+    .stats {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat-item {
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat-item:last-child { border-right: 0; }
+
+    .stat-value {
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -.05em;
+      color: var(--navy);
+    }
+
+    .stat-label {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    section { padding: 92px 0; }
+    .section-light { background: var(--section); }
+    .centered { text-align: center; max-width: 900px; margin: 0 auto; }
+
+    .grid-3, .grid-4, .grid-2 {
+      display: grid;
+      gap: 24px;
+      margin-top: 54px;
+    }
+
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .icon {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: #edf3fb;
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+    }
+
+    .card h3 {
+      font-size: 1.7rem;
+      line-height: 1.18;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      color: var(--text);
+    }
+
+    .card p, .card li {
+      margin-top: 14px;
+      font-size: 1.06rem;
+      line-height: 1.9;
+      color: var(--muted);
+    }
+
+    .card ul {
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 24px;
+      margin-top: 54px;
+    }
+
+    .feature-block {
+      padding: 38px;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .feature-primary {
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      color: var(--white);
+    }
+
+    .feature-primary h3, .feature-accent h3 { color: var(--white); }
+    .feature-primary p, .feature-primary li { color: #dce7ff; }
+
+    .feature-accent {
+      background: linear-gradient(135deg, var(--teal), var(--cyan));
+      color: var(--white);
+    }
+
+    .feature-accent p, .feature-accent li { color: #ebfeff; }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 6px;
+      margin-top: 10px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 24px;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      background: linear-gradient(var(--teal), var(--cyan));
+    }
+
+    .timeline-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 22px;
+      margin-bottom: 32px;
+      align-items: start;
+    }
+
+    .timeline-item:last-child { margin-bottom: 0; }
+
+    .step {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--navy);
+      color: var(--white);
+      font-weight: 800;
+      box-shadow: 0 10px 25px rgba(8, 26, 58, 0.22);
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline h3 {
+      font-size: 1.45rem;
+      line-height: 1.2;
+      letter-spacing: -.03em;
+      color: var(--text);
+    }
+
+    .timeline p {
+      margin-top: 8px;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    .quote {
+      font-size: 3.2rem;
+      line-height: 1;
+      color: var(--teal);
+    }
+
+    .testimonial-text {
+      margin-top: 20px;
+      font-size: 1.08rem;
+      line-height: 1.95;
+      color: var(--text);
+      font-style: italic;
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .avatar {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: var(--white);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--navy), var(--teal));
+    }
+
+    .user strong {
+      display: block;
+      font-size: 1rem;
+    }
+
+    .user span {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .faq details {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 22px 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .faq details + details { margin-top: 16px; }
+
+    .faq summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1.08rem;
+      color: var(--text);
+      list-style: none;
+    }
+
+    .faq summary::-webkit-details-marker { display: none; }
+
+    .faq p {
+      margin-top: 14px;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .contact {
+      background: linear-gradient(135deg, var(--navy), #0a2d67);
+      color: var(--white);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .contact .section-tag { color: #d7e4ff; }
+    .contact .section-title { color: var(--white); }
+    .contact .section-title .accent { color: #7dd3fc; }
+    .contact .section-subtitle { color: #dce7ff; }
+
+    .contact-info {
+      margin-top: 28px;
+      display: grid;
+      gap: 16px;
+      color: #f2f7ff;
+      font-size: 1.06rem;
+    }
+
+    .form-box {
+      padding: 36px;
+      border-radius: 30px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 28px 60px rgba(0,0,0,.2);
+      backdrop-filter: blur(8px);
+    }
+
+    .field { margin-bottom: 18px; }
+    .field label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #e5efff;
+    }
+
+    .field input, .field textarea, .field select {
+      width: 100%;
+      min-height: 56px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      color: var(--white);
+      padding: 14px 16px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .field input::placeholder, .field textarea::placeholder { color: #adc0e0; }
+    .field select option { color: #111827; }
+
+    .site-footer {
+      background: var(--footer);
+      color: #8e97a8;
+    }
+
+    .footer-inner {
+      min-height: 92px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      color: #d4def0;
+    }
+
+    .footer-logo-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .highlight-grid,
+      .process-grid,
+      .contact-grid,
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-panel-grid { grid-template-columns: 1fr 1fr; }
+
+      .stat-item {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .stat-item:last-child { border-bottom: 0; }
+    }
+
+    @media (max-width: 860px) {
+      .nav, .header-cta { display: none; }
+      section { padding: 72px 0; }
+      .hero-grid { padding: 64px 0 72px; }
+      .card, .feature-block, .form-box, .hero-panel { padding: 26px; }
+      .hero-panel-grid { grid-template-columns: 1fr; }
+      .timeline::before { left: 23px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#inicio" class="logo">
+        <span class="logo-mark">🔐</span>
+        <span>LGPD Guard</span>
+      </a>
+
+      <nav class="nav">
+        <a href="#inicio">Início</a>
+        <a href="#problema">Problema</a>
+        <a href="#consequencias">Consequências</a>
+        <a href="#solucoes">Soluções</a>
+        <a href="#adequacao">Adequação</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <a href="#contato" class="btn btn-primary header-cta">Solicitar diagnóstico</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-pill">🛡️ Segurança da informação + conformidade com a LGPD</div>
+          <h1 class="hero-title">
+            Vazamento de dados em plataformas digitais: <span class="accent">consequências</span> e soluções
+          </h1>
+          <p class="hero-text">
+            Um incidente de segurança pode gerar responsabilização jurídica, prejuízo financeiro, perda de confiança e danos reputacionais. Estruture uma resposta preventiva com governança, proteção de dados e adequação à LGPD.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#contato" class="btn btn-primary">Solicitar diagnóstico LGPD</a>
+            <a href="#solucoes" class="btn btn-outline">Ver soluções</a>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div class="hero-panel-grid">
+            <div class="mini-card">
+              <div>⚖️</div>
+              <strong>Responsabilidade jurídica</strong>
+              <span>Sanções administrativas, indenizações e dever de comunicação do incidente.</span>
+            </div>
+            <div class="mini-card">
+              <div>🔒</div>
+              <strong>Segurança da informação</strong>
+              <span>Controles técnicos e organizacionais para prevenir acessos indevidos e exposição de dados.</span>
+            </div>
+            <div class="mini-card">
+              <div>🏛️</div>
+              <strong>Administração Pública</strong>
+              <span>Adequação institucional, transparência, governança e proteção do cidadão.</span>
+            </div>
+            <div class="mini-card">
+              <div>📋</div>
+              <strong>Plano de adequação</strong>
+              <span>Mapeamento, análise de riscos, políticas internas e monitoramento contínuo.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="container stats-grid">
+        <div class="stat-item">
+          <div class="stat-value">LGPD</div>
+          <div class="stat-label">Proteção de dados pessoais</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">Riscos</div>
+          <div class="stat-label">Jurídicos, financeiros e reputacionais</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">Governança</div>
+          <div class="stat-label">Políticas, controles e processos</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">Prevenção</div>
+          <div class="stat-label">Resposta estruturada e contínua</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="problema">
+      <div class="container">
+        <div class="centered">
+          <span class="section-tag">O problema</span>
+          <h2 class="section-title">O que caracteriza um vazamento de dados?</h2>
+          <p class="section-subtitle">
+            O vazamento de dados ocorre quando informações pessoais ou sensíveis são acessadas, expostas, compartilhadas ou utilizadas indevidamente, seja por falha técnica, ataque cibernético, erro humano ou ausência de controles internos adequados.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon">💻</div>
+            <h3>Falhas tecnológicas</h3>
+            <p>Configurações inseguras, ausência de criptografia, senhas frágeis, sistemas desatualizados e vulnerabilidades exploradas por terceiros.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">👤</div>
+            <h3>Erro humano</h3>
+            <p>Envio indevido de documentos, exposição em planilhas, compartilhamento incorreto de arquivos e acesso sem critério a bases internas.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">🌐</div>
+            <h3>Plataformas digitais</h3>
+            <p>Sites, aplicativos, sistemas de atendimento, e-commerces, cadastros online e bancos de dados conectados à internet podem se tornar portas de entrada para incidentes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-light" id="consequencias">
+      <div class="container">
+        <div class="centered">
+          <span class="section-tag">Consequências</span>
+          <h2 class="section-title">Impactos jurídicos e práticos do vazamento de dados</h2>
+          <p class="section-subtitle">
+            A exposição indevida de dados pessoais não gera apenas um problema técnico: ela pode desencadear sanções administrativas, responsabilização civil, perda de credibilidade institucional e danos à continuidade das atividades.
+          </p>
+        </div>
+
+        <div class="highlight-grid">
+          <article class="feature-block feature-primary">
+            <h3>Consequências jurídicas</h3>
+            <ul>
+              <li>Aplicação de sanções administrativas previstas na LGPD.</li>
+              <li>Apuração de responsabilidade por tratamento inadequado de dados.</li>
+              <li>Possibilidade de indenizações por danos materiais e morais.</li>
+              <li>Obrigação de comunicar incidentes aos órgãos competentes e aos titulares, quando cabível.</li>
+              <li>Comprometimento da conformidade regulatória e contratual.</li>
+            </ul>
+          </article>
+
+          <article class="feature-block feature-accent">
+            <h3>Consequências práticas</h3>
+            <ul>
+              <li>Abalo reputacional e perda de confiança de clientes e cidadãos.</li>
+              <li>Interrupção de serviços e retrabalho operacional.</li>
+              <li>Perda de contratos e restrições em relações institucionais.</li>
+              <li>Custos com resposta ao incidente, suporte técnico e medidas corretivas.</li>
+              <li>Exposição pública negativa em ambientes digitais e na imprensa.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon">⚖️</div>
+            <h3>Responsabilização civil</h3>
+            <p>Quando o tratamento inadequado causar dano ao titular, a organização poderá responder judicialmente, inclusive por falhas de segurança e ausência de medidas preventivas.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">📉</div>
+            <h3>Dano reputacional</h3>
+            <p>Mesmo sem condenação imediata, a confiança do público pode ser fortemente afetada, principalmente quando há omissão, demora na resposta ou reincidência.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">🏢</div>
+            <h3>Impacto institucional</h3>
+            <p>Empresas, órgãos públicos e entidades que tratam dados precisam demonstrar governança, rastreabilidade e mecanismos efetivos de proteção.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="solucoes">
+      <div class="container">
+        <div class="centered">
+          <span class="section-tag">Soluções</span>
+          <h2 class="section-title">Como reduzir riscos e fortalecer a segurança da informação</h2>
+          <p class="section-subtitle">
+            A melhor resposta para o vazamento de dados é a prevenção estruturada. A adequação exige integração entre tecnologia, governança, capacitação interna e conformidade jurídica.
+          </p>
+        </div>
+
+        <div class="grid-4">
+          <article class="card">
+            <div class="icon">🗂️</div>
+            <h3>Mapeamento de dados</h3>
+            <p>Identifique quais dados são coletados, onde são armazenados, quem acessa e qual a base legal de tratamento.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">🔐</div>
+            <h3>Controles técnicos</h3>
+            <p>Implemente autenticação forte, gestão de acessos, backups, criptografia, atualização de sistemas e monitoramento de incidentes.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">📘</div>
+            <h3>Políticas internas</h3>
+            <p>Estruture políticas de privacidade, segurança da informação, retenção documental e resposta a incidentes.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">🎓</div>
+            <h3>Treinamento contínuo</h3>
+            <p>Capacite servidores, colaboradores e equipes de apoio para reduzir falhas humanas e fortalecer a cultura de proteção de dados.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-light" id="adequacao">
+      <div class="container process-grid">
+        <div>
+          <span class="section-tag">Adequação</span>
+          <h2 class="section-title">Passo a passo para implementar a LGPD na prática</h2>
+          <p class="section-subtitle">
+            A adequação não se resume a um documento isolado. Trata-se de um processo contínuo de diagnóstico, organização, implantação de controles e revisão permanente.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="step">01</div>
+            <div>
+              <h3>Diagnóstico institucional</h3>
+              <p>Levantamento de fluxos de dados, contratos, sistemas, formulários, bases legais e pontos críticos de exposição.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="step">02</div>
+            <div>
+              <h3>Análise de riscos</h3>
+              <p>Identificação de vulnerabilidades técnicas, operacionais e jurídicas, com priorização de medidas corretivas.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="step">03</div>
+            <div>
+              <h3>Implementação de políticas</h3>
+              <p>Criação de regras internas, termos, controles de acesso, protocolos de atendimento e plano de resposta a incidentes.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="step">04</div>
+            <div>
+              <h3>Monitoramento contínuo</h3>
+              <p>Revisão periódica, capacitação de equipes, atualização de sistemas e auditoria dos procedimentos adotados.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="centered">
+          <span class="section-tag">Setor público</span>
+          <h2 class="section-title">LGPD aplicada à Administração Pública</h2>
+          <p class="section-subtitle">
+            No setor público, a proteção de dados exige equilíbrio entre transparência, eficiência administrativa e preservação dos direitos fundamentais do cidadão. A governança de dados deve dialogar com rotinas internas, contratos, sistemas oficiais e canais de atendimento ao público.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <div class="icon">🏛️</div>
+            <h3>Desafios institucionais</h3>
+            <p>Órgãos públicos lidam com grande volume de dados pessoais, múltiplos sistemas, compartilhamentos intersetoriais e deveres de transparência, o que aumenta a necessidade de controles claros.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">📑</div>
+            <h3>Governança e conformidade</h3>
+            <p>É fundamental estabelecer políticas, definir responsabilidades, revisar fluxos documentais, orientar servidores e estruturar mecanismos de resposta a incidentes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-light">
+      <div class="container">
+        <div class="centered">
+          <span class="section-tag">Depoimentos</span>
+          <h2 class="section-title">Percepção de valor e confiança</h2>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <div class="quote">“</div>
+            <p class="testimonial-text">O diagnóstico permitiu identificar falhas invisíveis na rotina da instituição. A estruturação das políticas internas trouxe mais segurança e organização.</p>
+            <div class="user">
+              <div class="avatar">AM</div>
+              <div>
+                <strong>Ana Martins</strong>
+                <span>Gestão administrativa</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="quote">“</div>
+            <p class="testimonial-text">A linguagem foi clara, prática e compatível com a realidade do órgão público. Conseguimos transformar um tema complexo em procedimentos objetivos.</p>
+            <div class="user">
+              <div class="avatar">RC</div>
+              <div>
+                <strong>Rafael Costa</strong>
+                <span>Controle institucional</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="quote">“</div>
+            <p class="testimonial-text">O trabalho integrou segurança da informação, responsabilidade jurídica e capacitação da equipe, o que elevou a maturidade da organização.</p>
+            <div class="user">
+              <div class="avatar">LS</div>
+              <div>
+                <strong>Larissa Souza</strong>
+                <span>Consultoria organizacional</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container faq">
+        <div class="centered">
+          <span class="section-tag">Perguntas frequentes</span>
+          <h2 class="section-title">Dúvidas comuns sobre vazamento de dados e LGPD</h2>
+        </div>
+
+        <div style="max-width: 980px; margin: 54px auto 0;">
+          <details open>
+            <summary>O que é considerado vazamento de dados?</summary>
+            <p>É toda situação em que dados pessoais ficam expostos, são acessados por pessoas não autorizadas, compartilhados indevidamente ou utilizados fora da finalidade legítima e informada.</p>
+          </details>
+
+          <details>
+            <summary>Toda empresa ou órgão público precisa se adequar à LGPD?</summary>
+            <p>Sim. Sempre que houver tratamento de dados pessoais, é necessário observar os princípios, bases legais, deveres de segurança e governança previstos na legislação.</p>
+          </details>
+
+          <details>
+            <summary>Quais medidas ajudam a evitar incidentes?</summary>
+            <p>Mapeamento de dados, controle de acessos, revisão de processos, políticas internas, backups, atualização tecnológica e treinamento contínuo das equipes.</p>
+          </details>
+
+          <details>
+            <summary>Adequação à LGPD é apenas uma política de privacidade?</summary>
+            <p>Não. A adequação envolve um conjunto de ações jurídicas, técnicas e organizacionais, incluindo governança, segurança, documentação, contratos e resposta a incidentes.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contato">
+      <div class="container contact-grid">
+        <div>
+          <span class="section-tag">Contato</span>
+          <h2 class="section-title">Pronto para estruturar sua <span class="accent">conformidade</span> com a LGPD?</h2>
+          <p class="section-subtitle">
+            Solicite um diagnóstico inicial e identifique riscos, fragilidades e caminhos para fortalecer a proteção de dados na sua organização ou instituição pública.
+          </p>
+
+          <div class="contact-info">
+            <div>📍 Campo Mourão - PR</div>
+            <div>📞 (44) 0000-0000</div>
+            <div>✉️ contato@seudominio.com.br</div>
+            <div>🕒 Atendimento com foco em orientação jurídica e institucional</div>
+          </div>
+        </div>
+
+        <div class="form-box">
+          <form>
+            <div class="field">
+              <label for="nome">Nome</label>
+              <input type="text" id="nome" name="nome" placeholder="Seu nome completo">
+            </div>
+
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" placeholder="seu@email.com">
+            </div>
+
+            <div class="field">
+              <label for="perfil">Perfil</label>
+              <select id="perfil" name="perfil">
+                <option>Empresa privada</option>
+                <option>Órgão público</option>
+                <option>Profissional liberal</option>
+                <option>Instituição/entidade</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="mensagem">Mensagem</label>
+              <textarea id="mensagem" name="mensagem" placeholder="Descreva brevemente sua necessidade"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Solicitar diagnóstico</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-logo">
+        <span class="footer-logo-mark">🔐</span>
+        <span>LGPD Guard</span>
+      </div>
+      <div>© 2026 - Site institucional sobre vazamento de dados, segurança da informação e LGPD.</div>
+    </div>
+  </footer>
+</body>
+</html>
