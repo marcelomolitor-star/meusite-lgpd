@@ -155,33 +155,19 @@
   position: relative;
   background: url('Gemini_Generated_Image_nwqpchnwqpchnwqp.png') no-repeat center center;
   background-size: cover;
+  background-position: center 60%;
+  background-repeat: no-repeat;
   color: var(--white);
   overflow: hidden;
 }
 
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(8, 26, 58, 0.85),
-    rgba(13, 36, 80, 0.85)
-  );
-  z-index: 0;
-}
 
-.hero .container {
-  position: relative;
-  z-index: 1;
-}
 
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.08fr .92fr;
+      grid-template-columns: 1fr;
       gap: 46px;
-      align-items: center;
       padding: 86px 0 92px;
     }
 
@@ -228,6 +214,10 @@
 
     .hero-panel {
       padding: 28px;
+      margin-top: 40px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
       border-radius: var(--radius-xl);
       background: rgba(255,255,255,.06);
       border: 1px solid rgba(255,255,255,.1);
@@ -635,7 +625,108 @@
       .hero-panel-grid { grid-template-columns: 1fr; }
       .timeline::before { left: 23px; }
     }
-  </style>
+  
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(8, 26, 58, 0.72),
+    rgba(13, 36, 80, 0.72)
+  );
+  z-index: 0;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+body {
+  animation: pageFadeIn 0.9s ease-out;
+}
+
+@keyframes cardFloatIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card, .mini-card, .feature-block, .faq details {
+  animation: cardFloatIn 0.8s ease-out both;
+}
+
+.card:hover, .mini-card:hover, .feature-block:hover {
+  transform: translateY(-6px);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.site-header.scrolled {
+  background: rgba(255,255,255,0.98);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+#topBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: var(--teal);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  display: none;
+  z-index: 999;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+}
+
+#topBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 35px rgba(0,0,0,0.22);
+}
+
+.card:hover, .mini-card:hover, .feature-block:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+
+a, button {
+  transition: all 0.25s ease;
+}
+
+a:hover {
+  opacity: 0.85;
+}
+
+@media (min-width: 1101px) {
+  .hero {
+    background-position: center 62%;
+  }
+}
+
+</style>
 </head>
 <body>
 <header class="site-header">
@@ -673,22 +764,22 @@
 </div>
 <div class="hero-panel">
 <div class="hero-panel-grid">
-<div class="mini-card">
+<div class="mini-card reveal">
 <div>⚖️</div>
 <strong>Problema real</strong>
 <span>Vazamento de dados em plataformas digitais e fragilidades na proteção das informações.</span>
 </div>
-<div class="mini-card">
+<div class="mini-card reveal">
 <div>🔒</div>
 <strong>Consequências</strong>
 <span>Impactos jurídicos, sociais, econômicos e institucionais decorrentes da exposição indevida.</span>
 </div>
-<div class="mini-card">
+<div class="mini-card reveal">
 <div>🏛️</div>
 <strong>Parecer do grupo</strong>
 <span>Análise crítica sobre o caso, com fundamentação e proposta de solução.</span>
 </div>
-<div class="mini-card">
+<div class="mini-card reveal">
 <div>📋</div>
 <strong>Revisão pela IA</strong>
 <span>Aprimoramento textual e argumentativo com apoio da inteligência artificial.</span>
@@ -728,17 +819,17 @@
 <img alt="Ilustração sobre proteção de dados" src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" style="width:120px; margin:20px auto; display:block;"/>
 </div>
 <div class="grid-3">
-<article class="card">
+<article class="card reveal">
 <div class="icon">💻</div>
 <h3>Falhas tecnológicas</h3>
 <p>Configurações inseguras, ausência de criptografia, senhas frágeis, sistemas desatualizados e vulnerabilidades exploradas por terceiros.</p>
 </article>
-<article class="card">
+<article class="card reveal">
 <div class="icon">👤</div>
 <h3>Erro humano</h3>
 <p>Envio indevido de documentos, exposição em planilhas, compartilhamento incorreto de arquivos e acesso sem critério a bases internas.</p>
 </article>
-<article class="card">
+<article class="card reveal">
 <div class="icon">🌐</div>
 <h3>Plataformas digitais</h3>
 <p>Sites, aplicativos, sistemas de atendimento, e-commerces, cadastros online e bancos de dados conectados à internet podem se tornar portas de entrada para incidentes.</p>
@@ -746,7 +837,7 @@
 </div>
 </div>
 </section>
-<section class="section-light" id="consequencias">
+<section class="section-light reveal" id="consequencias">
 <div class="container">
 <div class="centered">
 <span class="section-tag">Consequências</span>
@@ -756,7 +847,7 @@
           </p>
 </div>
 <div class="highlight-grid">
-<article class="feature-block feature-primary">
+<article class="feature-block reveal feature-primary">
 <h3>Consequências jurídicas</h3>
 <ul>
 <li>Aplicação de sanções administrativas previstas na LGPD.</li>
@@ -766,7 +857,7 @@
 <li>Comprometimento da conformidade regulatória e contratual.</li>
 </ul>
 </article>
-<article class="feature-block feature-accent">
+<article class="feature-block reveal feature-accent">
 <h3>Consequências práticas</h3>
 <ul>
 <li>Abalo reputacional e perda de confiança de clientes e cidadãos.</li>
@@ -778,17 +869,17 @@
 </article>
 </div>
 <div class="grid-3">
-<article class="card">
+<article class="card reveal">
 <div class="icon">⚖️</div>
 <h3>Responsabilização civil</h3>
 <p>Quando o tratamento inadequado causar dano ao titular, a organização poderá responder judicialmente, inclusive por falhas de segurança e ausência de medidas preventivas.</p>
 </article>
-<article class="card">
+<article class="card reveal">
 <div class="icon">📉</div>
 <h3>Dano reputacional</h3>
 <p>Mesmo sem condenação imediata, a confiança do público pode ser fortemente afetada, principalmente quando há omissão, demora na resposta ou reincidência.</p>
 </article>
-<article class="card">
+<article class="card reveal">
 <div class="icon">🏢</div>
 <h3>Impacto institucional</h3>
 <p>Empresas, órgãos públicos e entidades que tratam dados precisam demonstrar governança, rastreabilidade e mecanismos efetivos de proteção.</p>
@@ -806,22 +897,22 @@
           </p>
 </div>
 <div class="grid-4">
-<article class="card">
+<article class="card reveal">
 <div class="icon">🗂️</div>
 <h3>Mapeamento de dados</h3>
 <p>Identifique quais dados são coletados, onde são armazenados, quem acessa e qual a base legal de tratamento.</p>
 </article>
-<article class="card">
+<article class="card reveal">
 <div class="icon">🔐</div>
 <h3>Controles técnicos</h3>
 <p>Implemente autenticação forte, gestão de acessos, backups, criptografia, atualização de sistemas e monitoramento de incidentes.</p>
 </article>
-<article class="card">
+<article class="card reveal">
 <div class="icon">📘</div>
 <h3>Políticas internas</h3>
 <p>Estruture políticas de privacidade, segurança da informação, retenção documental e resposta a incidentes.</p>
 </article>
-<article class="card">
+<article class="card reveal">
 <div class="icon">🎓</div>
 <h3>Treinamento contínuo</h3>
 <p>Capacite servidores, colaboradores e equipes de apoio para reduzir falhas humanas e fortalecer a cultura de proteção de dados.</p>
@@ -829,7 +920,7 @@
 </div>
 </div>
 </section>
-<section class="section-light" id="adequacao">
+<section class="section-light reveal" id="adequacao">
 <div class="container process-grid">
 <div>
 <span class="section-tag">Adequação</span>
@@ -880,13 +971,13 @@
           </p>
 </div>
 <div class="grid-2">
-<article class="card">
+<article class="card reveal">
 <div class="icon">🧠</div>
 <h3>Parecer formulado pelo grupo</h3>
 <p>O grupo entende que o vazamento de dados em plataformas digitais representa uma das consequências mais graves do avanço tecnológico sem proteção adequada. Embora a tecnologia tenha ampliado o acesso à informação e facilitado serviços, também criou vulnerabilidades relacionadas à privacidade, à segurança da informação e à proteção dos dados pessoais.</p>
 <p>Foi possível identificar que a principal falha está na deficiência dos mecanismos de proteção adotados por muitas plataformas, seja por negligência técnica, seja por ausência de investimento compatível em segurança digital. Essa falha expõe usuários a prejuízos concretos, como fraudes, constrangimentos, perda da privacidade e danos patrimoniais e morais.</p>
 </article>
-<article class="card">
+<article class="card reveal">
 <div class="icon">⚖️</div>
 <h3>Conclusão do grupo</h3>
 <p>O grupo conclui que a solução exige atuação preventiva e corretiva. Preventiva, por meio do fortalecimento da segurança dos sistemas, da capacitação dos profissionais e da adoção de boas práticas digitais. Corretiva, mediante responsabilização dos agentes envolvidos, reparação dos danos causados e aperfeiçoamento das normas e políticas de proteção de dados.</p>
@@ -895,7 +986,7 @@
 </div>
 </div>
 </section>
-<section class="section-light" id="parecer-ia">
+<section class="section-light reveal" id="parecer-ia">
 <div class="container">
 <div class="centered">
 <span class="section-tag">Parecer revisado pela IA</span>
@@ -904,7 +995,7 @@
             Aqui está a versão revisada do parecer, com linguagem mais técnica, maior clareza argumentativa e organização textual aprimorada.
           </p>
 </div>
-<div class="card" style="margin-top: 54px;">
+<div class="card reveal" style="margin-top: 54px;">
 <div class="icon">🤖</div>
 <h3>Parecer revisado pela IA</h3>
 <p>O vazamento de dados em plataformas digitais configura falha tecnológica de alta relevância social, econômica e jurídica, pois compromete diretamente direitos fundamentais ligados à privacidade, à intimidade e à proteção das informações pessoais. O desenvolvimento tecnológico, embora indispensável à vida contemporânea, ampliou significativamente a circulação e o armazenamento de dados, elevando também os riscos de acessos indevidos, ataques cibernéticos e uso abusivo das informações.</p>
@@ -952,6 +1043,7 @@
 <div>📞 Disciplina: Tecnologia da Informação</div>
 <div>✉️ Entrega em formato de site</div>
 <div>🕒 Trabalho acadêmico sobre tecnologia, segurança da informação e proteção de dados</div>
+<div style="margin-top:16px; font-weight:600; color:#ffffff;">A proteção de dados deixou de ser uma opção e passou a ser um dever institucional e social.</div>
 </div>
 </div>
 <div class="form-box">
@@ -972,13 +1064,13 @@
 </div>
 </section>
 </main>
-<section><div class="container"><div class="centered"><span class="section-tag">Reflexão do grupo</span><h2 class="section-title">Aprendizados e experiência</h2><p class="section-subtitle">Nesta etapa, o grupo apresenta os principais aprendizados obtidos durante a elaboração do trabalho, destacando desafios, evolução do conhecimento e o papel da inteligência artificial no processo.</p></div><div class="card" style="margin-top:40px;"><p>Durante o desenvolvimento deste trabalho, o grupo percebeu a relevância do tema da proteção de dados na sociedade atual, especialmente diante do crescimento das plataformas digitais.</p><p>Um dos principais desafios enfrentados foi estruturar o conteúdo de forma clara e organizada, conciliando aspectos técnicos, jurídicos e práticos do problema.</p><p>A utilização da Inteligência Artificial contribuiu significativamente para a melhoria da qualidade do texto, permitindo aprimorar a linguagem, organizar ideias e aprofundar a análise.</p><p>Dessa forma, o trabalho proporcionou não apenas conhecimento teórico, mas também o desenvolvimento de habilidades práticas relacionadas à análise crítica, uso de tecnologia e construção de soluções.</p></div></div></section><section>
+<section><div class="container"><div class="centered"><span class="section-tag">Reflexão do grupo</span><h2 class="section-title">Aprendizados e experiência</h2><p class="section-subtitle">Nesta etapa, o grupo apresenta os principais aprendizados obtidos durante a elaboração do trabalho, destacando desafios, evolução do conhecimento e o papel da inteligência artificial no processo.</p></div><div class="card reveal" style="margin-top:40px;"><p>Durante o desenvolvimento deste trabalho, o grupo percebeu a relevância do tema da proteção de dados na sociedade atual, especialmente diante do crescimento das plataformas digitais.</p><p>Um dos principais desafios enfrentados foi estruturar o conteúdo de forma clara e organizada, conciliando aspectos técnicos, jurídicos e práticos do problema.</p><p>A utilização da Inteligência Artificial contribuiu significativamente para a melhoria da qualidade do texto, permitindo aprimorar a linguagem, organizar ideias e aprofundar a análise.</p><p>Dessa forma, o trabalho proporcionou não apenas conhecimento teórico, mas também o desenvolvimento de habilidades práticas relacionadas à análise crítica, uso de tecnologia e construção de soluções.</p></div></div></section><section>
 <div class="container">
 <div class="centered">
 <span class="section-tag">Referências</span>
 <h2 class="section-title">Base teórica</h2>
 </div>
-<div class="card" style="margin-top:40px;">
+<div class="card reveal" style="margin-top:40px;">
 <p>BRASIL. Lei nº 13.709/2018 – Lei Geral de Proteção de Dados Pessoais (LGPD).</p>
 <p>DONEDA, Danilo. <em>Da privacidade à proteção de dados pessoais</em>.</p>
 <p>PINHEIRO, Patricia Peck. <em>Direito Digital</em>.</p>
@@ -999,5 +1091,47 @@
 </div>
 </div>
 </footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+
+  function revealOnScroll() {
+    const windowHeight = window.innerHeight;
+    reveals.forEach(el => {
+      const elementTop = el.getBoundingClientRect().top;
+      if (elementTop < windowHeight - 80) {
+        el.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll();
+</script>
+
+
+<button id="topBtn" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  const header = document.querySelector('.site-header');
+  const btn = document.getElementById('topBtn');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+
+    if (window.scrollY > 300) {
+      btn.style.display = 'block';
+    } else {
+      btn.style.display = 'none';
+    }
+  });
+
+  btn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+</script>
+
 </body>
 </html>
